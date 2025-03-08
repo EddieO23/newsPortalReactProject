@@ -1,12 +1,17 @@
 import React from 'react'
-import { Box, Grid2, Typography, Card } from '@mui/material'
-function CarouselList() {
+import { Box, Grid2, Typography, Card, CardMedia } from '@mui/material'
+function CarouselList({topHeadline}) {
   return (
     <Box className='grid grid-cols-5 gap-3 mt-8'>
-        {[...Array(5)].map((item, index) => (
+        {topHeadline.slice(0,5).map((item, index) => (
           <Grid2 key={index}>
             <Card className='relative'>
-              <Box className='bg-red-300 w-full aspect-[16/10]'></Box>
+              {/* <Box className='bg-red-300 w-full aspect-[16/10]'></Box> */}
+              <CardMedia
+              component='img'
+              className='w-full aspect-[16/9]'
+              image={item.urlToImage}
+              />
               <Box
                 className='_carouselGradient'
                 sx={{
@@ -20,10 +25,7 @@ function CarouselList() {
                 sx={{ fontFamily: 'serif', fontSize: '17px' }}
                 className='absolute bottom-2 text-white line-clamp-3 px-6'
               >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Obcaecati dolore sunt, cum quas quod officiis tempora quos hic
-                consequuntur error quisquam ea ab qui est non numquam
-                perferendis similique temporibus.
+                {item.title}
               </Typography>
             </Card>
           </Grid2>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -15,11 +15,16 @@ import axios from 'axios';
 
 
 function Carousel() {
+  const [topHeadlines, setTopHeadlines] =  useState([])
 
   const fetchTopHeadlines = async () => {
     try {
       const response = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=bc2bbd523cbb4ee5bb054d6c99ec82c6`)
-      console.log(response.data);
+      console.log(response.data.articles);
+
+      const filterHeadlines = response.data.articles.filter((res) => res.urlToImage != null)
+
+      setTopHeadlines(filterHeadlines)
     } catch (error) {
       console.log(error);
     }
@@ -33,10 +38,10 @@ function Carousel() {
       {/* HEADER */}
       <HeaderSection title='Top Headlines' />
 
-      <CarouselCard/>
+      <CarouselCard topHeadline={topHeadlines[0]}/>
 
       {/* Caoursel List */}
-<CarouselList/>
+      <CarouselList topHeadline={topHeadlines}/>
     </Box>
   );
 }
