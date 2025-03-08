@@ -15,7 +15,7 @@ function Carousel() {
   return (
     <Box>
       {/* HEADER */}
-      <HeaderSection />
+      <HeaderSection title='Top Headlines' />
 
       <CarouselCard/>
 

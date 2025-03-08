@@ -2,13 +2,13 @@ import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { ArrowBigRight } from 'lucide-react';
 
-function HeaderSection() {
+function HeaderSection({title}) {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
       <Typography
         sx={{ fontSize: '2.25rem', fontFamily: 'serif', cursor: 'pointer' }}
       >
-        TOP HEADLINES
+        {title}
       </Typography>
 
       <Button
