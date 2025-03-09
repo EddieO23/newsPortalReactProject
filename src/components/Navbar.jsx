@@ -9,8 +9,11 @@ import {
 import React from 'react';
 import { Search } from 'lucide-react';
 import { categories } from '../utils/constants';
+import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
+const navigate = useNavigate()
+
   return (
     <Box className='bg-neutral-900 text-white'>
       <Box
@@ -24,6 +27,7 @@ function Navbar() {
         }}
       >
         <Box
+        onClick={()=> navigate(`/`)}
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -98,6 +102,7 @@ function Navbar() {
       >
         {categories.map((item, idx) => (
           <Button
+          onClick={()=>navigate(`/explore`, {state: {category:item}})}
             className='min-w-fit w-full hover:bg-neutral-900'
             key={idx}
             sx={{ fontSize: '12px' }}
