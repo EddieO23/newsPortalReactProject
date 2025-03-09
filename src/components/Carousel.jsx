@@ -11,37 +11,49 @@ import HeaderSection from './HeaderSection';
 import CarouselCard from './CarouselCard';
 import CarouselList from './CarouselList';
 import axios from 'axios';
-
-
+import { getTopHeadlines } from '../utils/api';
 
 function Carousel() {
-  const [topHeadlines, setTopHeadlines] =  useState([])
+  const [topHeadlines, setTopHeadlines] = useState([]);
+  const [active, setActive] = useState(0);
 
   const fetchTopHeadlines = async () => {
-    try {
-      const response = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=bc2bbd523cbb4ee5bb054d6c99ec82c6`)
-      console.log(response.data.articles);
+    const response = await getTopHeadlines();
+    console.log(response);
 
-      const filterHeadlines = response.data.articles.filter((res) => res.urlToImage != null)
-
-      setTopHeadlines(filterHeadlines)
-    } catch (error) {
-      console.log(error);
+    if (response.data) {
+      const filterHeadlines = response.data?.articles.filter(
+        (res) => res.urlToImage != null
+      );
+      setTopHeadlines(filterHeadlines);
     }
-  }
-  
+  };
+
+  const toggleActive = (direction) => {
+    if (direction === 'next') {
+      setActive((prev) => (prev + 1) % topHeadlines.length);
+    } else if (direction === 'prev') {
+      setActive(
+        (prev) => (prev - 1 + topHeadlines.length) % topHeadlines.length
+      );
+    }
+  };
+
   useEffect(() => {
-    fetchTopHeadlines()
-  }, [])
+    fetchTopHeadlines();
+  }, []);
   return (
     <Box>
       {/* HEADER */}
       <HeaderSection title='Top Headlines' />
 
-      <CarouselCard topHeadline={topHeadlines[0]}/>
+      <CarouselCard
+        toggleActive={toggleActive}
+        topHeadline={topHeadlines[active]}
+      />
 
       {/* Caoursel List */}
-      <CarouselList topHeadline={topHeadlines}/>
+      <CarouselList active={active} topHeadline={topHeadlines} />
     </Box>
   );
 }
