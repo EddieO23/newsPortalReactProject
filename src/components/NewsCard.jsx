@@ -3,12 +3,11 @@ import { categories } from '../utils/constants'
 import HeaderSection from './HeaderSection'
 import {Box, Card, CardContent, CardMedia, Typography } from '@mui/material'
 
-function NewsCard({news}) {
+function NewsCard({item}) {
   return (
    
-        <Box className='grid grid-cols-5 gap-3'>
-          {news.slice(0, 5).map((item, indx) => (
-            <Card key={indx} className='relative shadow-none border-2'>
+        
+            <Card className='relative shadow-none border-2'>
               {/* <Box className='bg-red-300 w-full aspect-[16/9] h-[180px]' /> */}
               <CardMedia className='w-full aspect-[16/9] h-[180px]' component='img' image={item.urlToImage}/>
                 <CardContent className='mb-12'>
@@ -41,9 +40,6 @@ function NewsCard({news}) {
                   </Box>
                 </CardContent>
             </Card>
-          ))}
-        </Box>
-      
   )
 }
 

@@ -35,25 +35,30 @@ function HomeCards({ category }) {
 
   return (
     <>
-              <HeaderSection title={category} />
-      {error ? (
-        <Typography color='error' className=''>
-          {error}
-        </Typography>
+  <HeaderSection title={category} />
+  {error ? (
+    <Typography color='error' className=''>
+      {error}
+    </Typography>
+  ) : (
+    <>
+      {loading ? (
+        <Box>
+          <Typography>Loading...</Typography>
+        </Box>
       ) : (
-        <>
-          {loading ? (
-            <Box>
-              <Typography>Loading...</Typography>
-            </Box>
-          ) : (
-            <Box>
-              <NewsCard news={categoryNews} />
-            </Box>
-          )}
-        </>
+        <Box>
+          <Box className='grid grid-cols-5 gap-3'>
+            {categoryNews.slice(0, 5).map((item, indx) => (
+              <NewsCard key={indx} item={item} />
+            ))}
+          </Box>
+        </Box>
       )}
     </>
+  )}
+</>
+
   );
 }
 
