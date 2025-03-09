@@ -6,16 +6,20 @@ import NewsCard from './NewsCard';
 import { getTopHeadlines } from '../utils/api';
 
 function HomeCards({ category }) {
-const [categoryNews, setCategoryNews] = useState([])
+  const [categoryNews, setCategoryNews] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const fetchCategoryNews = async () => {
-    const response = await getTopHeadlines(category)
+    setLoading(true);
+    const response = await getTopHeadlines(category);
     // console.log("response", response);
-    if(response.data) {
+    if (response.data) {
       const filterCategoryNews = response?.data?.articles.filter(
         (res) => res.urlToImage != null
       );
-      setCategoryNews(filterCategoryNews)
+      setCategoryNews(filterCategoryNews);
+      setLoading(false);
     }
   };
 
@@ -24,10 +28,19 @@ const [categoryNews, setCategoryNews] = useState([])
   }, []);
 
   return (
-    <Box>
-      <HeaderSection title={category} />
-      <NewsCard news={categoryNews} />
-    </Box>
+    <>
+      {loading ? (
+        <Box>
+        <Typography>Loading...</Typography>
+        <HeaderSection title={category} />
+      </Box>
+      ) : (
+        <Box>
+          <HeaderSection title={category} />
+          <NewsCard news={categoryNews} />
+        </Box>
+      )}
+    </>
   );
 }
 
