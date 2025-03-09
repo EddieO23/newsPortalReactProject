@@ -4,7 +4,7 @@ import { baseUrl } from './constants';
 
 const apiKey = import.meta.env.VITE_API_KEY
 
-export const getTopHeadlines = async (category) => {
-  const url = `${baseUrl}/top-headlines?country=us&apiKey=${apiKey}${category ? `&category=${category}` : ''}`;
+export const getTopHeadlines = async (category, pageNumber) => {
+  const url = `${baseUrl}/top-headlines?country=us&apiKey=${apiKey}${category ? `&category=${category}` : ''}${pageNumber ? `&page=${pageNumber}` : ``}`;
   return await getRequest(url);
 };

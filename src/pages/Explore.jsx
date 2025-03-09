@@ -10,20 +10,34 @@ function Explore() {
   const category = location.state?.category;
 
   const [categoryData, setCategoryData] = useState({});
+  const [loadMore, setLoadMore] = useState(true);
 
   const fetchNews = async () => {
+    const currentCategoryData = categoryData[category] || {
+      articles: [],
+      pageNumber: 1,
+    };
+    const pageNumber = currentCategoryData.pageNumber;
     if (!category) return;
 
-    const response = await getTopHeadlines(category);
+    const response = await getTopHeadlines(category, pageNumber);
 
     if (response.data) {
       const filterNews = response.data.articles.filter(
         (res) => res.urlToImage != null
       );
+
       setCategoryData((prev) => ({
         ...prev,
-        [category]: filterNews,
+        [category]: {
+          articles: [...(prev[category]?.articles || []), ...filterNews],
+          pageNumber: pageNumber + 1,
+        },
       }));
+      setLoadMore(
+        currentCategoryData.articles.length + filterNews.length <
+          response.data.totalResults
+      );
     }
   };
   // In short, this function fetches news articles based on a specified category, filters out those without images, and updates the state with the valid articles. If no category is provided, it simply stops execution.
@@ -44,13 +58,20 @@ function Explore() {
       >
         {category}
       </Typography>
-      {categoryData[category] && categoryData[category].length > 0 && (
-        <ExploreCardsList list={categoryData[category]} />
+      {categoryData[category]?.articles?.length > 0 && (
+        <ExploreCardsList list={categoryData[category]?.articles} />
       )}
-      <Box display='flex' justifyContent='center' mt={3 }>
-        <Button sx={{background: 'gray'}} variant='contained' disableElevation >
-          Load more...
-        </Button>
+      <Box display='flex' justifyContent='center' mt={3}>
+        {loadMore && (
+          <Button
+            onClick={() => fetchNews()}
+            sx={{ background: 'gray' }}
+            variant='contained'
+            disableElevation
+          >
+            Load more...
+          </Button>
+        )}
       </Box>
     </Container>
   );
