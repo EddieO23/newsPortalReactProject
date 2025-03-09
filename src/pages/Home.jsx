@@ -17,7 +17,13 @@ function Home() {
   return (
     <Box sx={{ width: '90%', mx: 'auto' }}>
       <Carousel />
-      <HomeCards/>
+      <Box className='my-4 mb-24'>
+        <Box>
+          {categories.map((item, indx) => (
+            <HomeCards key={indx} category={item}/>
+          ))}
+        </Box>
+      </Box>
       
     </Box>
   );
