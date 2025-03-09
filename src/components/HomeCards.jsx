@@ -12,6 +12,8 @@ function HomeCards({ category }) {
 
   const fetchCategoryNews = async () => {
     setLoading(true);
+    setError(null);
+
     const response = await getTopHeadlines(category);
     // console.log("response", response);
     if (response.data) {
@@ -21,6 +23,10 @@ function HomeCards({ category }) {
       setCategoryNews(filterCategoryNews);
       setLoading(false);
     }
+
+    if (response.error) {
+      setError(response.error.message || 'Failed to fetch...');
+    }
   };
 
   useEffect(() => {
@@ -29,16 +35,23 @@ function HomeCards({ category }) {
 
   return (
     <>
-      {loading ? (
-        <Box>
-        <Typography>Loading...</Typography>
-        <HeaderSection title={category} />
-      </Box>
+              <HeaderSection title={category} />
+      {error ? (
+        <Typography color='error' className=''>
+          {error}
+        </Typography>
       ) : (
-        <Box>
-          <HeaderSection title={category} />
-          <NewsCard news={categoryNews} />
-        </Box>
+        <>
+          {loading ? (
+            <Box>
+              <Typography>Loading...</Typography>
+            </Box>
+          ) : (
+            <Box>
+              <NewsCard news={categoryNews} />
+            </Box>
+          )}
+        </>
       )}
     </>
   );

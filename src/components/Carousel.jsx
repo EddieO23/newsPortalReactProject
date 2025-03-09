@@ -17,7 +17,13 @@ function Carousel() {
   const [topHeadlines, setTopHeadlines] = useState([]);
   const [active, setActive] = useState(0);
 
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   const fetchTopHeadlines = async () => {
+    setLoading(true);
+    setError(null);
+
     const response = await getTopHeadlines();
     console.log(response);
 
@@ -26,6 +32,11 @@ function Carousel() {
         (res) => res.urlToImage != null
       );
       setTopHeadlines(filterHeadlines);
+      setLoading(false);
+    }
+
+    if (response.error) {
+      setError(response.error.message || 'Failed to fetch...');
     }
   };
 
@@ -47,13 +58,19 @@ function Carousel() {
       {/* HEADER */}
       <HeaderSection title='Top Headlines' />
 
-      <CarouselCard
-        toggleActive={toggleActive}
-        topHeadline={topHeadlines[active]}
-      />
-
-      {/* Caoursel List */}
-      <CarouselList active={active} topHeadline={topHeadlines} />
+      {error ? (
+        <Typography color='error'>{error}</Typography>
+      ) : loading ? (
+        <Typography>Loading...</Typography>
+      ) : (
+        <Box>
+          <CarouselCard
+            toggleActive={toggleActive}
+            topHeadline={topHeadlines[active]}
+          />
+          <CarouselList active={active} topHeadline={topHeadlines} />
+        </Box>
+      )}
     </Box>
   );
 }
