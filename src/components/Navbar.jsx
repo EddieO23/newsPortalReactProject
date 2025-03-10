@@ -6,13 +6,25 @@ import {
   Button,
   ButtonGroup,
 } from '@mui/material';
-import React from 'react';
+import React, {useState} from 'react';
 import { Search } from 'lucide-react';
 import { categories } from '../utils/constants';
 import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
-const navigate = useNavigate()
+const navigate = useNavigate() 
+const [search, setSearch] = useState("")
+const handleChange = (e) => {
+  setSearch(e.target.value)
+}
+const handleKeyPress = (e) => {
+  if(e.key === 'Enter'){
+    e.preventDefault()
+    setSearch("")
+    navigate(`/search`, {state:{title: `What we found for ${search}`, query: search}})
+  }
+}
+
 
   return (
     <Box className='bg-neutral-900 text-white'>
@@ -80,6 +92,9 @@ const navigate = useNavigate()
           {/* divider ends here */}
 
           <InputBase
+          value={search}
+          onChange={handleChange}
+          onKeyDown={handleKeyPress}
             sx={{
               color: 'white',
               width: '350px',
