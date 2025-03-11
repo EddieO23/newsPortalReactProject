@@ -39,7 +39,7 @@ const handleSearchIconClick = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          width: '90%',
+          width: {sm: '90%', xs: '95%'},
           mx: 'auto',
           py: 1,
         }}
@@ -50,7 +50,7 @@ const handleSearchIconClick = () => {
             display: 'flex',
             alignItems: 'center',
             cursor: 'pointer',
-            fontSize: '1.5rem',
+            fontSize: {md: '1.5rem', sm: '1.25rem',xs: '1rem'},
             fontFamily: 'serif',
           }}
         >
@@ -78,9 +78,9 @@ const handleSearchIconClick = () => {
             display: 'flex',
             alignItems: 'center',
             bgcolor: 'black',
-            px: 4,
+            px: {sm: 4,xs: 3},
             gap: 2,
-            borderRadius: '99px',
+            borderRadius: '999px',
             color: '#c2c2c2',
           }}
         >
@@ -104,9 +104,9 @@ const handleSearchIconClick = () => {
           placeholder='Search'
             sx={{
               color: 'white',
-              width: '350px',
+              width: {md: '350px', sm: '300px', xs: '180px'},
               height: '2.5rem',
-              fontSize: '1rem',
+              fontSize: {sm: '1rem', xs: '0.875rem'},
               fontFamily: 'serif',
               '&::placeholder': { color: '#646464' },
             }}
