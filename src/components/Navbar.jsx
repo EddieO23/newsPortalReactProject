@@ -25,6 +25,12 @@ const handleKeyPress = (e) => {
   }
 }
 
+const handleSearchIconClick = () => {
+  setSearch("")
+  navigate(`/search`, {state:{title: `What we found for ${search}`, query: search}})
+
+}
+
 
   return (
     <Box className='bg-neutral-900 text-white'>
@@ -80,7 +86,7 @@ const handleKeyPress = (e) => {
         >
           {/* search icon here */}
 
-          <Search size={20} />
+          <Search onClick={handleSearchIconClick} size={20} />
 
           {/* divider here */}
           <Divider
@@ -95,6 +101,7 @@ const handleKeyPress = (e) => {
           value={search}
           onChange={handleChange}
           onKeyDown={handleKeyPress}
+          placeholder='Search'
             sx={{
               color: 'white',
               width: '350px',

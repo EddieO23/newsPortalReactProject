@@ -9,23 +9,34 @@ function Search() {
   const [pageNumber, setPageNumber] = useState(1);
   const location = useLocation();
   const { title, query } = location.state;
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const fetchSearch = async () => {
-    const response = await getByQuery(query,pageNumber);
+    setError(null);
+    setLoading(true);
+    const response = await getByQuery(query, pageNumber);
     console.log('response', response);
 
     if (response.data) {
       const filterNews = response.data.articles.filter(
         (res) => res.urlToImage != null
       );
-      setSearchData(prev=>[...prev, ...filterNews]);
-      setPageNumber(prev=>prev+1)
+      setSearchData((prev) => [...prev, ...filterNews]);
+      setPageNumber((prev) => prev + 1);
+      setLoading(false);
+    }
+
+    if (response.error) {
+      setError(response.error.message);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
+    setSearchData([]);
     fetchSearch();
-  }, []);
+  }, [query]);
 
   return (
     <Container maxWidth='false' sx={{ width: '90%', mt: 5, mb: 10 }}>
@@ -35,17 +46,30 @@ function Search() {
       >
         {title}
       </Typography>
-      {searchData.length && <ExploreCardsList list={searchData} />}
-      <Box display='flex' justifyContent='center' mt={3}>
-        <Button
-          onClick={() => fetchSearch()}
-          sx={{ background: 'gray' }}
-          variant='contained'
-          disableElevation
-        >
-          Load more...
-        </Button>
-      </Box>
+
+      {error && (
+        <Typography color='error' sx={{ mb: 3 }}>
+          {error}
+        </Typography>
+      )}
+      {loading ? (
+        <Typography sx={{ mb: 3 }}>Loading...</Typography>
+      ) : (
+        <>
+          {searchData.length && <ExploreCardsList list={searchData} />}
+
+          <Box display='flex' justifyContent='center' mt={3}>
+            <Button
+              onClick={() => fetchSearch()}
+              sx={{ background: 'gray' }}
+              variant='contained'
+              disableElevation
+            >
+              Load more...
+            </Button>
+          </Box>
+        </>
+      )}
     </Container>
   );
 }
