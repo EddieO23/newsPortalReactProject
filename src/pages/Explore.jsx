@@ -65,7 +65,12 @@ function Explore() {
     <Container maxWidth='false' sx={{ width: '90%', mt: 5, mb: 10 }}>
       <Typography
         variant='h4'
-        sx={{ fontSize: {md: '2.25rem', xs: '1.5rem'}, fontFamily: 'serif', cursor: 'pointer', mb: 1 }}
+        sx={{
+          fontSize: { md: '2.25rem', xs: '1.5rem' },
+          fontFamily: 'serif',
+          cursor: 'pointer',
+          mb: 1,
+        }}
       >
         {category}
       </Typography>
@@ -75,31 +80,34 @@ function Explore() {
         </Typography>
       )}
 
-      {loading ? (
-            <Box className='grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-3'>
+      <>
+        {categoryData[category] &&
+        categoryData[category].articles &&
+        categoryData[category].articles.length > 0 ? (
+          <ExploreCardsList
+            loading={loading}
+            list={categoryData[category].articles}
+          />
+        ) : (
+          <Box className='grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-3'>
             {[...Array(20)].map((_, index) => (
-                <NewsCardSkeleton key={index} />
-              ))}
-            </Box>
-      ) : (
-        <>
-          {categoryData[category]?.articles?.length > 0 && (
-            <ExploreCardsList list={categoryData[category]?.articles} />
-          )}
-          <Box display='flex' justifyContent='center' mt={3}>
-            {loadMore && (
-              <Button
-                onClick={() => fetchNews()}
-                sx={{ background: 'gray' }}
-                variant='contained'
-                disableElevation
-              >
-                Load more...
-              </Button>
-            )}
+              <NewsCardSkeleton key={index} />
+            ))}
           </Box>
-        </>
-      )}
+        )}
+        <Box display='flex' justifyContent='center' mt={3}>
+          {loadMore && (
+            <Button
+              onClick={() => fetchNews()}
+              sx={{ background: 'gray' }}
+              variant='contained'
+              disableElevation
+            >
+              Load more...
+            </Button>
+          )}
+        </Box>
+      </>
     </Container>
   );
 }
