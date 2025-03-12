@@ -12,6 +12,8 @@ import CarouselCard from './CarouselCard';
 import CarouselList from './CarouselList';
 import axios from 'axios';
 import { getTopHeadlines } from '../utils/api';
+import CarouselCardSkeleton from './Skeletons/CarouselCardSkeleton';
+import CarouselListSkeleton from './Skeletons/CarouselListSkeleton';
 
 function Carousel() {
   const [topHeadlines, setTopHeadlines] = useState([]);
@@ -61,7 +63,10 @@ function Carousel() {
       {error ? (
         <Typography color='error'>{error}</Typography>
       ) : loading ? (
-        <Typography>Loading...</Typography>
+        <>
+          <CarouselCardSkeleton />
+          <CarouselListSkeleton  />
+        </>
       ) : (
         <Box>
           <CarouselCard

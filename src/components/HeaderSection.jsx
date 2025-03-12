@@ -6,7 +6,7 @@ function HeaderSection({title}) {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
       <Typography
-        sx={{ fontSize: '2.25rem', fontFamily: 'serif', cursor: 'pointer' }}
+        sx={{ fontSize: {md: '2.25rem', xs: '1.5rem'}, fontFamily: 'serif', cursor: 'pointer' }}
       >
         {title}
       </Typography>
@@ -16,6 +16,7 @@ function HeaderSection({title}) {
           display: 'flex',
           alignItems: 'center',
           gap: 1,
+          fontSize:{lg: '1rem', md: '0.875rem', xs:"0.8rem"},          
           color: 'black',
           '&:hover': {
             textDecoration: 'underline',
@@ -24,7 +25,7 @@ function HeaderSection({title}) {
         }}
       >
         SEE ALL
-        <ArrowBigRight size={20} />
+        <ArrowBigRight size={20} className='md:text-2xl xs:text-md ' />
       </Button>
     </Box>
   );

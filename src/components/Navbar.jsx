@@ -78,7 +78,7 @@ const handleSearchIconClick = () => {
             display: 'flex',
             alignItems: 'center',
             bgcolor: 'black',
-            px: {sm: 4,xs: 3},
+            px: {sm: 4, xs: 3},
             gap: 2,
             borderRadius: '999px',
             color: '#c2c2c2',
@@ -127,7 +127,7 @@ const handleSearchIconClick = () => {
           onClick={()=>navigate(`/explore`, {state: {category:item}})}
             className='min-w-fit w-full hover:bg-neutral-900'
             key={idx}
-            sx={{ fontSize: '12px' }}
+            sx={{ fontSize: {md:'16px', sm: '13px', xs: '12px'} }}
           >
             {item}
           </Button>

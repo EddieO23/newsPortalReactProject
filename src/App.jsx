@@ -10,11 +10,11 @@ function App() {
     <Box>
       <BrowserRouter>
         <Navbar />
-        {/* <Routes>
+        <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/explore' element={<Explore/>}/>
           <Route path='/search' element={<Search/>}/>
-        </Routes> */}
+        </Routes>
       </BrowserRouter>
     </Box>
   );

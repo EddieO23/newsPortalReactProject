@@ -4,6 +4,7 @@ import HeaderSection from './HeaderSection';
 import { Box, Card, CardContent, Typography } from '@mui/material';
 import NewsCard from './NewsCard';
 import { getTopHeadlines } from '../utils/api';
+import NewsCardSkeleton from './Skeletons/NewsCardSkeleton';
 
 function HomeCards({ category }) {
   const [categoryNews, setCategoryNews] = useState([]);
@@ -35,30 +36,29 @@ function HomeCards({ category }) {
 
   return (
     <>
-  <HeaderSection title={category} />
-  {error ? (
-    <Typography color='error' className=''>
-      {error}
-    </Typography>
-  ) : (
-    <>
-      {loading ? (
-        <Box>
-          <Typography>Loading...</Typography>
-        </Box>
+      <HeaderSection title={category} />
+      {error ? (
+        <Typography color='error' className=''>
+          {error}
+        </Typography>
       ) : (
-        <Box>
-          <Box className='grid grid-cols-5 gap-3'>
-            {categoryNews.slice(0, 5).map((item, indx) => (
-              <NewsCard key={indx} item={item} />
-            ))}
-          </Box>
-        </Box>
+        <>
+          {loading ? (
+            <Box className='grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-2'>
+              {[...Array(5)].map((_, index) => (
+                <NewsCardSkeleton key={index} />
+              ))}
+            </Box>
+          ) : (
+              <Box className='grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-2'>
+                {categoryNews.slice(0, 5).map((item, indx) => (
+                  <NewsCard key={indx} item={item} />
+                ))}
+              </Box>
+          )}
+        </>
       )}
     </>
-  )}
-</>
-
   );
 }
 

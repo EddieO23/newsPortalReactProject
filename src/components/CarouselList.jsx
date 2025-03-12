@@ -17,7 +17,7 @@ function CarouselList({ topHeadline, active }) {
   const nextFiveHeadlines = getNextFive(active, topHeadline);
 
   return (
-    <Box className='grid grid-cols-5 gap-3 mt-8'>
+    <Box className='grid xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3 mt-8'>
       {nextFiveHeadlines.map((item, index) => (
         <Grid2 key={index}>
           <Link to={topHeadline[item]?.url}>
@@ -39,7 +39,7 @@ function CarouselList({ topHeadline, active }) {
               />
               <Typography
                 sx={{ fontFamily: 'serif', fontSize: '17px' }}
-                className='absolute bottom-2 text-white line-clamp-3 px-6'
+                className='absolute bottom-2 text-white md:text-[17px] sm:text-[15px] text-[14px] line-clamp-3 px-6'
               >
                 {topHeadline[item]?.title}
               </Typography>

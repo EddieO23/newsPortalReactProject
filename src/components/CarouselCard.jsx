@@ -8,8 +8,8 @@ function CarouselCard({ topHeadline, toggleActive }) {
     // Carousel
     <Box className='relative'>
       <Link to={topHeadline.url}>
-        <Card className=' relative grid grid-cols-2 border-1  shadow-none'>
-          <Box className='relative h-[360px]'>
+        <Card className='grid lg:grid-cols-2 md:grid-cols-3 border-2 shadow-none'>
+          <Box className='relative md:h-[360px] h-[280px] lg:col-span-1 md:col-span-2'>
             {/* <Box className='bg-red-300 h-full'></Box> */}
             <CardMedia
               component='img'
@@ -26,8 +26,8 @@ function CarouselCard({ topHeadline, toggleActive }) {
               }}
             />
             <Typography
-              sx={{ fontFamily: 'serif', fontSize: '22px' }}
-              className='absolute bottom-2 text-white leading-8 line-clamp-3 px-6'
+              sx={{ fontFamily: 'serif'}}
+              className='absolute bottom-2 md:text-[22px] sm:text-xl text-lg text-white leading-8 line-clamp-3 px-6'
             >
               {topHeadline?.title}
             </Typography>
@@ -38,27 +38,27 @@ function CarouselCard({ topHeadline, toggleActive }) {
             <Typography
               gutterBottom
               sx={{ fontSize: '20px', fontFamily: 'serif' }}
-              className='text-xl font-serif line-clamp-4'
+              className='sm:text-xl text-lg font-serif line-clamp-4'
             >
               {topHeadline?.description}
             </Typography>
             <Typography
               sx={{ fontSize: '18px', fontFamily: 'serif' }}
-              className='text-xl font-serif line-clamp-4'
+              className='sm:text-xl text-lg font-serif line-clamp-4'
             >
               {topHeadline?.content}
             </Typography>
 
-            <Box className='absolute bottom-2'>
+            <Box className='md:absolute bottom-2'>
               <Typography
                 sx={{ fontSize: '18px', fontFamily: 'serif' }}
-                className='text-xl font-serif line-clamp-4'
+                className='sm:text-xl text-lg font-serif line-clamp-4'
               >
                 Source: {topHeadline?.source.name}
               </Typography>
               <Typography
                 sx={{ fontSize: '18px', fontFamily: 'serif' }}
-                className='text-xl font-serif line-clamp-4'
+                className='sm:text-xl text-lg font-serif line-clamp-4'
               >
                 Date: {new Date(topHeadline?.publishedAt).toLocaleDateString()}
               </Typography>
